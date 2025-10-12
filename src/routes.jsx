@@ -3,7 +3,7 @@ import PaymentPage from './pages/PaymentPage'
 import UploadPage from './pages/UploadPage'
 import NotFound from './pages/NotFound'
 import HomePage from './pages/HomePage'
-import StorePage from './pages/StorePage.JSX'
+import StorePage from './pages/StorePage'
 
 export const RoutesComponent = () => {
 	return (
