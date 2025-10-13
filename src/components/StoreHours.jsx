@@ -108,6 +108,15 @@ export function StoreHours({ store }) {
 			>
 				{store.name}
 			</span>
+			<span
+				style={{
+					marginTop: '2px',
+					color: isOpen ? '#20293b' : '#9ca5b8',
+				}}
+				className='font-normal mt-1 text-xs'
+			>
+				{store.store_location}
+			</span>
 		</>
 	)
 }

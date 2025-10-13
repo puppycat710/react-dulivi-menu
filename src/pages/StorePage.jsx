@@ -18,6 +18,7 @@ export default function StorePage() {
 				const res = await api.get(`/store/slug/${slug}`)
 				const store_data = res.data.data
 				if (store_data.password) delete store_data.password
+				sessionStorage.setItem('fk_store_id', store_data.id)
 				setStore(store_data)
 			} catch (err) {
 				console.error('Erro ao buscar loja:', err)
@@ -39,9 +40,8 @@ export default function StorePage() {
 						<div
 							className={`bg-[url(${store.image})] bg-cover bg-center w-[58px] h-[58px] rounded-2xl`}
 						></div>
-						<aside className='flex flex-col justify-center text-sm leading-[14px] font-bold text-[#525866]'>
+						<aside className='flex flex-col justify-center text-sm leading-[14px] font-bold'>
 							<StoreHours store={store} />
-							<span className='font-normal mt-1 text-xs'>{store.store_location}</span>
 						</aside>
 					</header>
 					<StoreInfoCard store={store} />
