@@ -6,6 +6,7 @@ import { StoreNotFound } from '../components/StoreNotFound'
 import { StoreHours } from '../components/StoreHours'
 import StoreInfoCard from '../components/StoreInfo'
 import { CategoryMenu } from '../components/CategoryMenu'
+import ProductList from '../components/ProductList'
 
 export default function StorePage() {
 	const { slug } = useParams()
@@ -48,6 +49,10 @@ export default function StorePage() {
 				</div>
 			</section>
 			<CategoryMenu />
+			<ProductList store={store} />
+			<footer className='w-full text-center mt-9 pb-3'>
+				<span className='text-[#20293b] text-xs'>© 2025 Dulivi - 37.593.578/0001-09</span>
+			</footer>
 		</>
 	)
 }

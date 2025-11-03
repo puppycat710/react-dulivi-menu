@@ -4,17 +4,22 @@ import UploadPage from './pages/UploadPage'
 import NotFound from './pages/NotFound'
 import HomePage from './pages/HomePage'
 import StorePage from './pages/StorePage'
+import { StoreProvider } from './context/StoreContext'
+import { ProductPage } from './pages/ProductPage'
 
 export const RoutesComponent = () => {
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route index element={<HomePage />} />
-				<Route path='/:slug' element={<StorePage />} />
-				<Route path='/pay' element={<PaymentPage />} />
-				<Route path='/upload' element={<UploadPage />} />
-				<Route path='*' element={<NotFound />} />
-			</Routes>
-		</BrowserRouter>
+		<StoreProvider>
+			<BrowserRouter>
+				<Routes>
+					<Route index element={<HomePage />} />
+					<Route path='/:slug' element={<StorePage />} />
+					<Route path="/:slug/produto/:slug" element={<ProductPage />} />
+					<Route path='/pay' element={<PaymentPage />} />
+					<Route path='/upload' element={<UploadPage />} />
+					<Route path='*' element={<NotFound />} />
+				</Routes>
+			</BrowserRouter>
+		</StoreProvider>
 	)
 }

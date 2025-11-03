@@ -23,7 +23,7 @@ export default function StoreInfoCard({ store }) {
 					setHasCustomAreas(true)
 				}
 			} catch (err) {
-				console.error('Erro ao buscar áreas de entrega:', err)
+					console.error('Erro ao buscar áreas de entrega')
 			}
 		}
 
