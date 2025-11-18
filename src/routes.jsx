@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage'
 import StorePage from './pages/StorePage'
 import { StoreProvider } from './context/StoreContext'
 import { ProductPage } from './pages/ProductPage'
+import CheckoutPage from './components/CheckoutPage'
 
 export const RoutesComponent = () => {
 	return (
@@ -13,8 +14,9 @@ export const RoutesComponent = () => {
 			<BrowserRouter>
 				<Routes>
 					<Route index element={<HomePage />} />
-					<Route path='/:slug' element={<StorePage />} />
-					<Route path="/:slug/produto/:slug" element={<ProductPage />} />
+					<Route path='/:storeSlug' element={<StorePage />} />
+					<Route path="/:storeSlug/produto/:productSlug" element={<ProductPage />} />
+					<Route path='/:storeSlug/checkout' element={<CheckoutPage />} />
 					<Route path='/pay' element={<PaymentPage />} />
 					<Route path='/upload' element={<UploadPage />} />
 					<Route path='*' element={<NotFound />} />

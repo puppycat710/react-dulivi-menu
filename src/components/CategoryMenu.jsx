@@ -64,12 +64,12 @@ export function CategoryMenu() {
 					className='flex overflow-x-auto space-x-6 px-10 py-3 no-scrollbar scroll-smooth justify-center w-full'
 				>
 					{categories?.map((cat) => (
-						<>
-							<button key={cat.id} className='text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap'>
+						<div key={cat.id}>
+							<button className='text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap'>
 								{cat.title}
 							</button>
 							<hr className='bg-[#E0E0E0] w-[1px] h-auto border-none' />
-						</>
+						</div>
 					))}
 				</div>
 				{/* Botão seta direita */}
