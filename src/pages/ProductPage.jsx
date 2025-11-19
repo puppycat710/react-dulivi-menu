@@ -56,7 +56,6 @@ export function ProductPage() {
 			}
 		})
 
-		sessionStorage.setItem('total_price', base + compTotal)
 		setTotalPrice(base + compTotal)
 	}, [product, quantity, JSON.stringify(selectedComplements)])
 	// counter change

@@ -1,7 +1,6 @@
-import { useContext, useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
-import { StoreContext } from '../context/StoreContext'
 import { api } from '../services/api'
+import { useState, useEffect } from "react"
 
 export default function ProductList({ store }) {
 	const [categories, setCategories] = useState([])
@@ -9,7 +8,7 @@ export default function ProductList({ store }) {
 	//Navigate
 	const navigate = useNavigate()
 	//Session
-	const { fk_store_id } = useContext(StoreContext)
+	const [fk_store_id] = useState(() => sessionStorage.getItem('fk_store_id'))
 	// Get all categories
 	useEffect(() => {
 		const fetchCategories = async () => {

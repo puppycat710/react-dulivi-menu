@@ -15,7 +15,7 @@ export default function StorePage() {
 	const [store, setStore] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [cartCount, setCartCount] = useState(0)
-	const total_price = sessionStorage.getItem('total_price')
+	const [totalPrice, setTotalPrice] = useState(0)
 	// Buscar dados da loja
 	useEffect(() => {
 		const fetchStore = async () => {
@@ -34,7 +34,6 @@ export default function StorePage() {
 		}
 		if (storeSlug) fetchStore()
 	}, [storeSlug])
-
 	// Checar carrinho
 	useEffect(() => {
 		const cart = JSON.parse(sessionStorage.getItem('cart') || '{}')
@@ -50,6 +49,54 @@ export default function StorePage() {
 			setCartCount(c.items?.length || 0)
 		}, 1000)
 		return () => clearInterval(interval)
+	}, [])
+	useEffect(() => {
+		const loadCartTotal = async () => {
+			const cart = JSON.parse(sessionStorage.getItem('cart') || '{}')
+
+			if (!cart.items || cart.items.length === 0) {
+				setTotalPrice(0)
+				return
+			}
+
+			try {
+				const detailedItems = await Promise.all(
+					cart.items.map(async (item) => {
+						const productRes = await api.get(`/product/${item.fk_product_id}`)
+						const productData = productRes.data.data
+
+						const complementsWithDetails = await Promise.all(
+							(item.complements || []).map(async (c) => {
+								const compRes = await api.get(`/complement?id=${c.fk_complement_id}`)
+								return {
+									...compRes.data,
+									quantity: c.quantity,
+								}
+							})
+						)
+
+						return {
+							...productData,
+							quantity: item.quantity,
+							complements: complementsWithDetails,
+						}
+					})
+				)
+
+				// calcular total
+				const total = detailedItems.reduce((acc, item) => {
+					const productTotal = item.price * item.quantity
+					const compTotal = (item.complements || []).reduce((a, c) => a + (c.price || 0) * c.quantity, 0)
+					return acc + productTotal + compTotal
+				}, 0)
+
+				setTotalPrice(total)
+			} catch (err) {
+				console.error('Erro ao calcular total:', err)
+			}
+		}
+
+		loadCartTotal()
 	}, [])
 
 	if (loading) return <LoadingScreen />
@@ -84,7 +131,13 @@ export default function StorePage() {
 								<SvgBag />
 							</i>
 							<span>Ver sacola</span>
-							<span>R$ {total_price?.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+							<span>
+								R${' '}
+								{totalPrice.toLocaleString('pt-BR', {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								})}
+							</span>
 						</div>
 					</button>
 				</div>
