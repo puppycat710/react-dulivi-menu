@@ -15,8 +15,30 @@ body {
 	scrollbar-width: none; /* Firefox */
 }
 .box-shadow-dulivi {
-	box-shadow: 0 -1px 8px #0003,0 -3px 4px #00000024,0 -3px 3px -2px #0000001f;
+	box-shadow: 0 -1px 8px #0003, 0 -3px 4px #00000024, 0 -3px 3px -2px #0000001f;
+}
+.box-shadow-checkout {
+	box-shadow: rgba(150, 150, 150, 0.3) 0px 0px 30px 0px;
 }
 .cart-shadow {
-	box-shadow: 0 1px 5px #0003,0 2px 2px #00000024,0 3px 1px -2px #0000001f;
+	box-shadow: 0 1px 5px #0003, 0 2px 2px #00000024, 0 3px 1px -2px #0000001f;
+}
+.animation-pulse-border {
+	animation: pulse-border-b6aef8b2 2s infinite;
+}
+@keyframes pulse-border-b6aef8b2 {
+	0% {
+		box-shadow: 0 0 #4caf50b3;
+	}
+
+	70% {
+		box-shadow: 0 0 0 10px #4caf5000;
+	}
+
+	to {
+		box-shadow: 0 0 #4caf5000;
+	}
+}
+.pulsing-border[data-v-b6aef8b2] {
+	animation: pulse-border-b6aef8b2 2s infinite;
 }

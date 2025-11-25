@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { CounterProduct } from '../components/CounterProduct'
 import { api } from '../services/api'
+import { CounterCheckout } from './CounterCheckout'
+import { Label } from '../../components/ui/label'
+import { Input } from '../../components/ui/input'
+import { X } from 'lucide-react'
 
 export default function CheckoutPage() {
 	const [cart, setCart] = useState(null)
+	const [observation, setObservation] = useState('')
 	const [cartWithDetails, setCartWithDetails] = useState([])
 	const navigate = useNavigate()
 	const { storeSlug } = useParams()
@@ -86,36 +90,42 @@ export default function CheckoutPage() {
 	if (!cart || !cartWithDetails.length) return null
 
 	return (
-		<div className='max-w-[700px] mx-auto p-4 flex flex-col gap-4'>
-			<h1 className='text-xl font-bold text-center'>Sua Sacola</h1>
+		<div className='max-w-[474px] mx-auto flex flex-col gap-4 pt-8 relative'>
+			<h1 className='text-sm font-bold text-center'>Sua sacola</h1>
+			<hr className='border-[#0000001F] w-full mb-3' />
 
 			{cartWithDetails.map((item, index) => {
 				const itemTotal =
 					item.price * item.quantity + (item.complements || []).reduce((a, c) => a + (c.price || 0) * c.quantity, 0)
 
 				return (
-					<div key={index} className='flex gap-4 border-b pb-3'>
+					<div key={index} className='flex gap-4 relative'>
+						<button onClick={() => removeItem(index)} className='absolute top-0 right-0 cursor-pointer'>
+							<X strokeWidth={2} color='#9CA5B8' className='w-4.5 h-4.5' />
+						</button>
 						<img src={item.image || '/assets/image.png'} alt={item.title} className='w-20 h-20 object-cover rounded' />
-						<div className='flex-1 flex flex-col justify-between'>
-							<div>
-								<h2 className='font-medium'>{item.title}</h2>
+						<div className='flex-1 flex justify-between'>
+							<div className='flex flex-col'>
+								<h2 className='font-semibold text-sm'>{item.title}</h2>
 								{item.complements?.length > 0 && (
-									<ul className='text-sm text-gray-600'>
+									<ul className='text-xs text-gray-600'>
 										{item.complements.map((c, i) => (
-											<li key={i}>
-												{c.quantity} {c.title} {c.price > 0 && `+ R$ ${formatPrice(c.price)}`}
+											<li key={i} className='flex gap-2 items-center text-[#20293B]'>
+												<span>{c.quantity}</span>
+												<span>{c.title}</span>
 											</li>
 										))}
 									</ul>
 								)}
+								<span className='font-bold text-sm text-[#20293B] mt-1'>R$ {formatPrice(itemTotal)}</span>
 							</div>
-							<div className='flex items-center justify-between mt-2'>
-								<span className='font-bold'>R$ {formatPrice(itemTotal)}</span>
+							<div className='flex items-end justify-center mt-2'>
 								<div className='flex items-center gap-2'>
-									<CounterProduct quantity={item.quantity} onChange={(value) => handleQuantityChange(index, value)} />
-									<button onClick={() => removeItem(index)} className='text-red-500 font-bold px-2'>
-										×
-									</button>
+									<CounterCheckout
+										quantity={item.quantity}
+										onChange={(value) => handleQuantityChange(index, value)}
+										onRemove={() => removeItem(index)}
+									/>
 								</div>
 							</div>
 						</div>
@@ -123,24 +133,46 @@ export default function CheckoutPage() {
 				)
 			})}
 
-			<div className='flex justify-between font-bold text-lg mt-4'>
+			<hr className='border-[#0000001F] w-full my-2' />
+
+			<div className='flex justify-between font-bold text-base mt- text-[#20293B]'>
 				<span>Total</span>
 				<span>R$ {formatPrice(total)}</span>
 			</div>
 
-			<div className='flex flex-col gap-2 mt-4'>
-				<button
-					onClick={() => navigate(-1)}
-					className='w-full border border-green-500 text-green-500 py-3 rounded font-bold'
-				>
-					Adicionar mais itens
-				</button>
-				<button
-					onClick={() => alert('Seguir para pagamento')}
-					className='w-full bg-green-500 text-white py-3 rounded font-bold'
-				>
-					Próximo
-				</button>
+			<hr className='border-[#0000001F] w-full my-2' />
+
+			<div className='flex flex-col gap-1.5 text-[#525866] mb-40'>
+				<Label htmlFor='observation' className='text-sm font-bold'>
+					Observações?
+				</Label>
+				<Input
+					id='observation'
+					name='observation'
+					type='text'
+					placeholder='Observações sobre o produto'
+					value={observation}
+					onChange={(e) => setObservation(e.target.value)}
+					className='border-[#0000003D]'
+				/>
+			</div>
+			<div
+				className='fixed bottom-0 left-0 p-4 w-full box-shadow-checkout text-sm bg-white'
+			>
+				<div className='flex flex-col gap-2'>
+					<button
+						onClick={() => navigate(-1)}
+						className='w-full border border-[#1CAA60] text-[#19C235] py-2 rounded-xl font-bold animation-pulse-border'
+					>
+						Adicionar mais itens
+					</button>
+					<button
+						onClick={() => alert('Seguir para pagamento')}
+						className='w-full bg-[#1CAA60] text-white py-2 rounded-xl font-bold'
+					>
+						Próximo
+					</button>
+				</div>
 			</div>
 		</div>
 	)
