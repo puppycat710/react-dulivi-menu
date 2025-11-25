@@ -90,7 +90,7 @@ export default function CheckoutPage() {
 	if (!cart || !cartWithDetails.length) return null
 
 	return (
-		<div className='max-w-[474px] mx-auto flex flex-col gap-4 pt-8 relative'>
+		<div className='max-w-[474px] mx-auto flex flex-col gap-4 pt-8 lg:px-0 px-4 relative'>
 			<h1 className='text-sm font-bold text-center'>Sua sacola</h1>
 			<hr className='border-[#0000001F] w-full mb-3' />
 
