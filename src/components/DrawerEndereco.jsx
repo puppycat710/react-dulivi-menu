@@ -12,8 +12,8 @@ import {
 } from '../../components/ui/drawer'
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
+import SelectAddress from './selectedAddress'
 import SvgMap from './svg/SvgMap'
-import SvgDeliveryTime from './svg/SvgDeliveryTime'
 import { api } from '../services/api.js'
 import { X, Trash2, MapPin, Motorbike } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select'
@@ -267,7 +267,7 @@ export default function DrawerEndereco() {
         ${enderecoSelecionado === index ? 'border-dulivi bg-dulivi/10' : 'border-gray-300 bg-white'}`}
 					>
 						<div className='flex justify-between items-start'>
-							<div>
+							<div className='flex flex-col gap-1'>
 								<p className='font-semibold text-black'>
 									{item.rua}, {item.numero}
 								</p>
@@ -300,18 +300,7 @@ export default function DrawerEndereco() {
 							</div>
 						</div>
 
-						{enderecoSelecionado === index && (
-							<div className='mt-3 text-blue-600 font-bold'>
-								<div className='flex items-center gap-2'>
-									<SvgDeliveryTime width={16} height={16} />
-									<p>30 - 40 min</p>
-								</div>
-								<div className='flex items-center gap-2'>
-									<Motorbike width={16} height={16} />
-									<p>R$ 7,00</p>
-								</div>
-							</div>
-						)}
+						{enderecoSelecionado === index && <SelectAddress />}
 					</div>
 				))}
 			</div>

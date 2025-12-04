@@ -29,6 +29,21 @@ body {
 .animation-pulse-border {
 	animation: pulse-border-b6aef8b2 2s infinite;
 }
+.spinner {
+	width: 16px;
+	height: 16px;
+	border: 2px solid #1d84ff; /* azul */
+	border-top-color: transparent;
+	border-radius: 50%;
+	animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
 @keyframes pulse-border-b6aef8b2 {
 	0% {
 		box-shadow: 0 0 #4caf50b3;
