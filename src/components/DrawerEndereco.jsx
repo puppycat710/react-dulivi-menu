@@ -79,15 +79,18 @@ export default function DrawerEndereco() {
 				const { latitude, longitude } = pos.coords
 
 				try {
-					const res = await fetch(
-						`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1&zoom=18&email=seuemail@dominio.com`
-					)
+					const { data } = await axios.get('https://nominatim.openstreetmap.org/reverse', {
+						params: {
+							lat: latitude,
+							lon: longitude,
+							format: 'json',
+							addressdetails: 1,
+							zoom: 18,
+							email: 'seuemail@dominio.com', // substitua pelo seu email
+						},
+						timeout: 5000, // opcional: evita ficar travado caso a requisição demore
+					})
 
-					if (!res.ok) {
-						throw new Error(`Erro HTTP: ${res.status}`)
-					}
-
-					const data = await res.json()
 					console.log('ENDEREÇO OBTIDO:', data)
 
 					const addr = data.address || {}
