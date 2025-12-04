@@ -156,9 +156,7 @@ export default function CheckoutPage() {
 					className='border-[#0000003D]'
 				/>
 			</div>
-			<div
-				className='fixed bottom-0 left-0 p-4 w-full box-shadow-checkout text-sm bg-white'
-			>
+			<div className='fixed bottom-0 left-0 p-4 w-full box-shadow-checkout text-sm bg-white'>
 				<div className='flex flex-col gap-2'>
 					<button
 						onClick={() => navigate(-1)}
@@ -167,7 +165,7 @@ export default function CheckoutPage() {
 						Adicionar mais itens
 					</button>
 					<button
-						onClick={() => alert('Seguir para pagamento')}
+						onClick={() => navigate(`/${storeSlug}/checkout/delivery`)}
 						className='w-full bg-[#1CAA60] text-white py-2 rounded-xl font-bold'
 					>
 						Próximo

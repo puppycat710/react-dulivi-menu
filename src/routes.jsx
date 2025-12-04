@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage'
 import StorePage from './pages/StorePage'
 import { ProductPage } from './pages/ProductPage'
 import CheckoutPage from './components/CheckoutPage'
+import DeliveryPage from './pages/DeliveryPage'
 
 export const RoutesComponent = () => {
 	return (
@@ -15,6 +16,7 @@ export const RoutesComponent = () => {
 				<Route path='/:storeSlug' element={<StorePage />} />
 				<Route path='/:storeSlug/produto/:productSlug' element={<ProductPage />} />
 				<Route path='/:storeSlug/checkout' element={<CheckoutPage />} />
+				<Route path='/:storeSlug/checkout/delivery' element={<DeliveryPage />} />
 				<Route path='/pay' element={<PaymentPage />} />
 				<Route path='/upload' element={<UploadPage />} />
 				<Route path='*' element={<NotFound />} />
