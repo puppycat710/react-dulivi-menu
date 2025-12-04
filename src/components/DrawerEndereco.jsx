@@ -76,26 +76,33 @@ export default function DrawerEndereco() {
 		navigator.geolocation.getCurrentPosition(
 			async (pos) => {
 				const { latitude, longitude } = pos.coords
+
 				try {
-					const res = await api.get(`/reverse-geocode?lat=${latitude}&lon=${longitude}`)
-					const addr = res.data.address
+					const res = await fetch(
+						`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1&zoom=18&email=seuemail@dominio.com`
+					)
+
+					const data = await res.json()
+					console.log('ENDEREÇO OBTIDO:', data)
+
+					const addr = data.address || {}
 
 					setForm((prev) => ({
 						...prev,
 						rua: addr.road || '',
 						bairro: addr.suburb || addr.neighbourhood || '',
-						cidade: addr.city_district || addr.town || '',
+						cidade: addr.city || addr.town || addr.village || '',
 						estado: addr.state || '',
 						cep: addr.postcode?.replace(/\D/g, '') || '',
 					}))
 				} catch (err) {
 					console.error('Erro ao buscar localização:', err)
+					toast.error('Erro ao buscar endereço via Nominatim.')
 				}
 			},
-			() => alert('Não foi possível obter sua localização.')
+			() => toast.error('Não foi possível obter sua localização.')
 		)
 	}
-
 	// Carrega estados
 	useEffect(() => {
 		const fetchEstados = async () => {
