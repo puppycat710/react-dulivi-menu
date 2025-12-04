@@ -148,17 +148,6 @@ export default function DrawerEndereco() {
 							{form.bairro ? `${form.bairro}, ${form.cidade} - ${form.estado}` : 'Preencha os dados corretamente.'}
 						</DrawerDescription>
 					</DrawerHeader>
-
-					<Button
-						onClick={handleUseMyLocation}
-						className='w-full border-dulivi border-[1px] text-dulivi font-medium py-5 rounded-xl cursor-pointer hover:bg-dulivi/10 transition'
-					>
-						<i className='!text-dulivi'>
-							<SvgMap />
-						</i>
-						Usar minha localização
-					</Button>
-
 					{/* Inputs */}
 					<div className='space-y-4 mt-4'>
 						{/* Rua */}
@@ -249,8 +238,17 @@ export default function DrawerEndereco() {
 					</div>
 
 					<Button
+						onClick={handleUseMyLocation}
+						className='w-full border-dulivi border-[1px] mt-32 text-dulivi font-medium py-5 rounded-xl cursor-pointer hover:bg-dulivi/10 transition'
+					>
+						<i className='!text-dulivi'>
+							<SvgMap />
+						</i>
+						Usar minha localização
+					</Button>
+					<Button
 						onClick={handleSaveAddress}
-						className='mt-36 cursor-pointer bg-dulivi font-bold text-white w-full py-5 rounded-xl hover:opacity-90 transition'
+						className='mt-3 cursor-pointer bg-dulivi font-bold text-white w-full py-5 rounded-xl hover:opacity-90 transition'
 					>
 						Salvar endereço
 					</Button>
