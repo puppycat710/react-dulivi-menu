@@ -5,6 +5,7 @@ import { CounterCheckout } from './CounterCheckout'
 import { Label } from '../../components/ui/label'
 import { Input } from '../../components/ui/input'
 import { X } from 'lucide-react'
+import { ChevronLeft } from 'lucide-react'
 
 export default function CheckoutPage() {
 	const [cart, setCart] = useState(null)
@@ -92,6 +93,12 @@ export default function CheckoutPage() {
 	return (
 		<div className='max-w-[474px] mx-auto flex flex-col gap-4 pt-8 lg:px-0 px-4 relative'>
 			<h1 className='text-sm font-bold text-center'>Sua sacola</h1>
+			<i
+				onClick={() => navigate(`/${storeSlug}`)}
+				className='absolute top-4 left-4 cursor-pointer shadow-back rounded-full p-1 text-dulivi'
+			>
+				<ChevronLeft />
+			</i>
 			<hr className='border-[#0000001F] w-full mb-3' />
 
 			{cartWithDetails.map((item, index) => {
@@ -160,13 +167,13 @@ export default function CheckoutPage() {
 				<div className='flex flex-col gap-2'>
 					<button
 						onClick={() => navigate(-1)}
-						className='w-full border border-[#1CAA60] text-[#19C235] py-2 rounded-xl font-bold animation-pulse-border'
+						className='w-full border border-dulivi text-dulivi py-2 rounded-xl font-bold animation-pulse-border cursor-pointer'
 					>
 						Adicionar mais itens
 					</button>
 					<button
 						onClick={() => navigate(`/${storeSlug}/checkout/delivery`)}
-						className='w-full bg-[#1CAA60] text-white py-2 rounded-xl font-bold'
+						className='w-full bg-dulivi text-white py-2 rounded-xl font-bold cursor-pointer'
 					>
 						Próximo
 					</button>

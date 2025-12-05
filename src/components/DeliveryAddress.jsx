@@ -5,14 +5,20 @@ import RetiradaComponenet from './RetiradaComponenet'
 import { RadioGroup, RadioGroupItem } from '../../components/ui/radio-group'
 import { Label } from '../../components/ui/label'
 import { ChevronLeft } from 'lucide-react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export default function DeliveryAddress() {
-	const [option, setOption] = useState('entrega') // valor inicial
+	const [option, setOption] = useState('entrega')
+	const navigate = useNavigate()
+	const { storeSlug } = useParams()
 
 	return (
 		<>
 			<div className='max-w-[474px] mx-auto flex flex-col gap-5 pt-8 lg:px-0 px-4 relative'>
-				<i className='absolute top-4 left-4 cursor-pointer shadow-back rounded-full p-1 text-dulivi'>
+				<i
+					onClick={() => navigate(`/${storeSlug}/checkout`)}
+					className='absolute top-4 left-4 cursor-pointer shadow-back rounded-full p-1 text-dulivi'
+				>
 					<ChevronLeft />
 				</i>
 				<h1 className='text-sm font-bold text-center'>Endereço de entrega</h1>

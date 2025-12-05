@@ -30,7 +30,7 @@ export function CounterCheckout({ onChange, onRemove, quantity }) {
 				{count === 1 ? (
 					<Trash2 strokeWidth={2} color='red' className='w-5 h-5 cursor-pointer' />
 				) : (
-					<Minus strokeWidth={2} color='#1CAA60' className='w-5 h-5 cursor-pointer' />
+					<Minus strokeWidth={2} color='#1d84ff' className='w-5 h-5 cursor-pointer text-dulivi' />
 				)}
 			</button>
 
@@ -39,7 +39,7 @@ export function CounterCheckout({ onChange, onRemove, quantity }) {
 
 			{/* Aumentar */}
 			<button className='w-8 h-8 flex items-center justify-center rounded-md' onClick={() => update(count + 1)}>
-				<Plus strokeWidth={2} color='#1CAA60' className='w-5 h-5 cursor-pointer' />
+				<Plus strokeWidth={2} color='#1d84ff' className='w-5 h-5 cursor-pointer' />
 			</button>
 		</div>
 	)

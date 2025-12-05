@@ -86,13 +86,10 @@ export default function DrawerEndereco() {
 							format: 'json',
 							addressdetails: 1,
 							zoom: 18,
-							email: 'seuemail@dominio.com', // substitua pelo seu email
+							email: 'contato@dulivi.com.br',
 						},
-						timeout: 5000, // opcional: evita ficar travado caso a requisição demore
+						timeout: 8000,
 					})
-
-					console.log('ENDEREÇO OBTIDO:', data)
-
 					const addr = data.address || {}
 
 					setForm((prev) => ({

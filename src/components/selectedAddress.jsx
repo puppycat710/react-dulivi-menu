@@ -1,8 +1,7 @@
-import { useEffect } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import SvgDeliveryTime from './svg/SvgDeliveryTime'
-import { Motorbike, Loader2 } from 'lucide-react'
+import { Motorbike } from 'lucide-react'
 import { api } from '../services/api.js'
 
 export default function SelectedAddress() {
@@ -29,7 +28,7 @@ export default function SelectedAddress() {
 
 	if (isLoading) {
 		return (
-			<div className='flex justify-center items-center gap-2 my-4 text-blue-600 font-bold'>
+			<div className='flex justify-center items-center gap-2 my-5 text-dulivi font-medium'>
 				<div className='spinner' />
 				<p>Calculando tempo e valor de entrega...</p>
 			</div>
