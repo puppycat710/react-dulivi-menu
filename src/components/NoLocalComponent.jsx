@@ -22,8 +22,8 @@ export default function NoLocalComponent() {
 	}, [storeSlug])
 	return (
 		<>
-			<div className='flex flex-col gap-1.5 px-2'>
-				<span className='text-xs text-[#747e91] font-semibold'>Endereço do restaurante:</span>
+			<div className='flex flex-col gap-2.5 px-2'>
+				<span className='text-xs/2 text-[#747e91] font-semibold'>Endereço do restaurante:</span>
 				<div className='flex flex-col gap-2.5'>
 					<span className='text-sm font-bold'>
 						{store?.store_street || ''}

@@ -28,9 +28,9 @@ export default function RetiradaComponenet() {
 	}, [storeSlug])
 	return (
 		<>
-			<div className='flex flex-col gap-1.5 mt-2'>
+			<div className='flex flex-col gap-1 mt-2'>
 				<span className='text-xs text-[#747e91] font-semibold'>Endereço do restaurante:</span>
-				<div className='flex flex-col gap-3'>
+				<div className='flex flex-col gap-4'>
 					<span className='text-sm font-bold'>
 						{store?.store_street || ''}
 						{store?.store_number ? `, ${store.store_number}` : ''}
@@ -40,7 +40,7 @@ export default function RetiradaComponenet() {
 						href={mapsLink}
 						target='_blank'
 						rel='noopener noreferrer'
-						className='text-sm text-dulivi border-dulivi border-1 rounded-2xl mx-2 py-3 text-center font-bold flex items-center justify-center gap-2'
+						className='text-sm text-dulivi border-dulivi border-1 rounded-2xl mx-1.5 py-3 text-center font-bold flex items-center justify-center gap-2'
 					>
 						<MapPin size={20} />
 						<span>Ver no mapa</span>

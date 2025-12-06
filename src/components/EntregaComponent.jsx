@@ -184,10 +184,11 @@ export default function EntregaComponent() {
 						{/* Cidade + Estado (mesma linha) */}
 						<div className='flex gap-4'>
 							<Select
-								value={form.estado}
+								value={estadoSelecionado}
 								onValueChange={(value) => {
-									setForm((prev) => ({ ...prev, estado: value }))
 									setEstadoSelecionado(value)
+									setForm((prev) => ({ ...prev, cidade: '' }))
+									setForm((prev) => ({ ...prev, estado: value }))
 								}}
 							>
 								<SelectTrigger className='border-[#0000001F] rounded' id='estado'>
@@ -195,12 +196,13 @@ export default function EntregaComponent() {
 								</SelectTrigger>
 								<SelectContent className='bg-white border-none'>
 									{estados.map((e) => (
-										<SelectItem key={e.id} value={e.nome}>
+										<SelectItem key={e.id} value={e.sigla}>
 											{e.nome}
 										</SelectItem>
 									))}
 								</SelectContent>
 							</Select>
+
 							<Select
 								value={form.cidade}
 								onValueChange={(value) => setForm((prev) => ({ ...prev, cidade: value }))}
