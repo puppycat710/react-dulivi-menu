@@ -166,7 +166,7 @@ export default function CheckoutPage() {
 			<div className='fixed bottom-0 left-0 p-4 w-full box-shadow-checkout text-sm bg-white'>
 				<div className='flex flex-col gap-2'>
 					<button
-						onClick={() => navigate(-1)}
+						onClick={() => navigate(`/${storeSlug}`)}
 						className='w-full border border-dulivi text-dulivi py-2 rounded-xl font-bold animation-pulse-border cursor-pointer'
 					>
 						Adicionar mais itens
