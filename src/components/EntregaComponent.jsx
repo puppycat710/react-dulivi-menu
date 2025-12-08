@@ -36,7 +36,7 @@ export default function EntregaComponent() {
 	const [enderecoSelecionado, setEnderecoSelecionado] = useState(null)
 	const [estados, setEstados] = useState([])
 	const [cidades, setCidades] = useState([])
-	const [estadoSelecionado, setEstadoSelecionado] = useState(null)
+	const [estadoSelecionado, setEstadoSelecionado] = useState('')
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
 	useEffect(() => {
@@ -74,6 +74,8 @@ export default function EntregaComponent() {
 			toast.warning('Seu navegador não suporta geolocalização')
 			return
 		}
+
+		navigator.permissions?.query({ name: 'geolocation' })
 
 		navigator.geolocation.getCurrentPosition(
 			async (pos) => {
@@ -140,7 +142,25 @@ export default function EntregaComponent() {
 
 	return (
 		<div>
-			<Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+			<Drawer
+				open={isDrawerOpen}
+				onOpenChange={(open) => {
+					setIsDrawerOpen(open)
+					if (open) {
+						setEstadoSelecionado('')
+						setForm({
+							rua: '',
+							bairro: '',
+							numero: '',
+							cep: '',
+							complemento: '',
+							referencia: '',
+							cidade: '',
+							estado: '',
+						})
+					}
+				}}
+			>
 				<DrawerTrigger asChild>
 					<Button className='text-dulivi font-semibold border-dulivi border-[1px] rounded-xl px-4 py-5 hover:opacity-90 transition w-full flex items-center gap-1 cursor-pointer mb-6'>
 						<MapPin />
