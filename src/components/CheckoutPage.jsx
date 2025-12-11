@@ -90,6 +90,16 @@ export default function CheckoutPage() {
 
 	if (!cart || !cartWithDetails.length) return null
 
+	const handleNext = async () => {
+		const res = await api.post(`/session/create`, {
+			...cart,
+			observation,
+		})
+		sessionStorage.setItem('session_id', res.data.order_token)
+		console.log(res.data.order_token)
+		navigate(`/${storeSlug}/checkout/delivery`)
+	}
+
 	return (
 		<div className='max-w-[474px] mx-auto flex flex-col gap-4 pt-8 lg:px-0 px-4 relative'>
 			<h1 className='text-sm font-bold text-center'>Sua sacola</h1>
@@ -171,10 +181,7 @@ export default function CheckoutPage() {
 					>
 						Adicionar mais itens
 					</button>
-					<button
-						onClick={() => navigate(`/${storeSlug}/checkout/delivery`)}
-						className='w-full bg-dulivi text-white py-2 rounded-xl font-bold cursor-pointer'
-					>
+					<button onClick={handleNext} className='w-full bg-dulivi text-white py-2 rounded-xl font-bold cursor-pointer'>
 						Próximo
 					</button>
 				</div>

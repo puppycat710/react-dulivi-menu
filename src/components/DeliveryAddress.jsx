@@ -6,11 +6,41 @@ import { RadioGroup, RadioGroupItem } from '../../components/ui/radio-group'
 import { Label } from '../../components/ui/label'
 import { ChevronLeft } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { api } from '../services/api'
+import { toast } from 'sonner'
 
 export default function DeliveryAddress() {
 	const [option, setOption] = useState('entrega')
+	const [selectedAddress, setSelectedAddress] = useState(null)
 	const navigate = useNavigate()
 	const { storeSlug } = useParams()
+	const session_id = sessionStorage.getItem('session_id')
+
+	const handleNext = async () => {
+		// Se for entrega, precisa ter endereço selecionado
+		if (option === 'entrega' && !selectedAddress) {
+			toast.error('Selecione um endereço antes de continuar!')
+			return
+		}
+
+		// Se for entrega, monta endereço — senão manda null
+		let addressString = null
+
+		if (option === 'entrega') {
+			addressString = `${selectedAddress.rua}, ${selectedAddress.numero} - ${selectedAddress.bairro}, ${
+				selectedAddress.cidade
+			} - ${selectedAddress.estado} ${selectedAddress.complemento ? ' - (' + selectedAddress.complemento + ')' : ''}`
+		}
+
+		const res = await api.put(`/session/update/${session_id}`, {
+			data: {
+				delivery_method: option,
+				delivery_address: addressString, // só vem preenchido quando for entrega
+			},
+		})
+
+		// navigate(`/${storeSlug}/checkout/payment`)
+	}
 
 	return (
 		<>
@@ -88,10 +118,18 @@ export default function DeliveryAddress() {
 				<hr className='border-[#0000001F] w-full' />
 
 				{/* RENDERIZA APENAS O COMPONENTE SELECIONADO */}
-				<div>
-					{option === 'entrega' && <EntregaComponent />}
+				<div className='mb-20'>
+					{option === 'entrega' && (
+						<EntregaComponent selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
+					)}
 					{option === 'no_local' && <NoLocalComponent />}
 					{option === 'retirada' && <RetiradaComponenet />}
+				</div>
+
+				<div className='fixed bottom-0 left-0 p-4 w-full box-shadow-checkout text-sm bg-white'>
+					<button onClick={handleNext} className='w-full bg-dulivi text-white py-2 rounded-xl font-bold cursor-pointer'>
+						Próximo
+					</button>
 				</div>
 			</div>
 		</>
